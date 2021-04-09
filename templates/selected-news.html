@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Все новости{% endblock %}
+
+{% block content %}
+{% load thumbnail %}
+
+<section id="download" class="section download banner" role="banner" style="padding: 0">
+    <div class="container second-banner-text">
+        <div class="col-md-10 col-md-offset-1">
+            <div class=" text-center">
+                <h3>{{ title.title }}</h3>
+                <h1>{{ news.title }}</h1>
+            </div><!-- banner text -->
+        </div>
+    </div>
+</section><!-- banner -->
+
+
+
+<section class="container"
+    style="background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.5); margin: 50px auto; padding: 25px">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{{ news.title }}</h4>
+            <p>{{ news.date }}</p>
+        </div>
+        <div class="person-content col-md-6">
+            <p>{{ news.description|linebreaks }}</p>
+        </div>
+
+        <div class="col-md-6">
+            <img src="{{ news.title_image.url }}" alt="" class="img-responsive img-news"
+                style="width: 100%; margin-bottom: 25px">
+            {% if news.image %}
+            <img src="{{ news.image.url }}" alt="" class="img-responsive img-news" style="width: 100%;">
+            {% endif %}
+        </div>
+    </div>
+</section><!-- teams -->
+
+{% endblock %}

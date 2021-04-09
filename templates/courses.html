@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Все курсы{% endblock %}
+
+{% block content %}
+{% load thumbnail %}
+<section id="download" class="section download banner" role="banner" style="padding: 0">
+    <div class="container second-banner-text">
+        <div class="col-md-10 col-md-offset-1">
+            <div class=" text-center">
+                <h3>{{ title.title }}</h3>
+                <h1>Страница всех курсов</h1>
+            </div><!-- banner text -->
+        </div>
+    </div>
+</section><!-- banner -->
+
+
+
+<section class="container"
+    style="background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.5); margin: 50px auto; padding: 25px">
+    <div class="row">
+        {% for item in category %}
+        <div class="col-md-12">
+            <h6>{{ item }}</h6>
+        </div>
+        {% for course in queryset %}
+        {% if item == course.category %}
+        <div class="col-md-6">
+            <a href="{% url 'selected_course' course.slug %}">
+                <div class="person doc news news-all">
+                    {% thumbnail course.image "250x250" crop="center" upscale=True as im %}
+                    <img src="{{ im.url }}" alt="" class="img-responsive logo-courses">
+                    {% endthumbnail %}
+                    <h5 class="role">Название:</h5>
+                    <h4>{{ course.name }}</h4>
+                    <h5 class="role">Продолжительнсть: <strong>{{ course.period }}</strong> Возрастная группа:
+                        <strong>{{ course.age_group }}</strong>
+                    </h5>
+                </div><!-- person -->
+            </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+</section><!-- teams -->
+{% endblock %}

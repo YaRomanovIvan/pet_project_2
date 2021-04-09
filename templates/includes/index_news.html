@@ -1,0 +1,29 @@
+{% load thumbnail %}
+<section id="teams" class="section teams" style="background-color: white;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Новости нашего центра</h2>
+            </div>
+            {% for new in news %}
+            <div class="col-md-4">
+                <div class="news">
+                    {% thumbnail new.title_image "650x450" crop="center" upscale=True as im %}
+                    <img src="{{ im.url }}" alt="" class="img-responsive">
+                    {% endthumbnail %}
+                    <div class="person-content">
+                        <h4>{{ new.title|truncatechars:30 }}</h4>
+                        <p>{{ new.date }}</p>
+                        <p>{{ new.description|truncatechars:235 }}</p>
+                        <a href="{% url 'selected_news' new.pk %}">Читать всю новость</a>
+                    </div>
+                </div><!-- person -->
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-12 repeat" style="margin-top: 50px; text-align: center">
+            <a href="{% url 'news' %}" class="btn btn-large ">Все новости центра</a>
+        </div>
+    </div>
+    </div>
+</section><!-- teams -->

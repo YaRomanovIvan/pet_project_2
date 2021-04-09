@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<section id="download" class="section download banner" role="banner" style="padding: 0">
+    <div class="container banner-text">
+        <div class="col-md-10 col-md-offset-1">
+            <div class=" text-center">
+                <h3>{{ title.title }}</h3>
+                <h1>{{ title.slogan }}</h1>
+                <p class="banner-p">{{ title.description }}</p>
+                <a href="{% url 'courses' %}" class="btn btn-large">Подробнее</a>
+            </div><!-- banner text -->
+        </div>
+    </div>
+</section><!-- banner -->
+
+<section id="features" class="features section" style="padding: 0px">
+    <div class="container"
+        style="padding: 50px; margin-top: -100px;  background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.5)">
+        <div class="row">
+            <div class="col-md-3">
+                <img style="width: 100%" src="{{ title.image.url }}">
+            </div>
+            <div class="col-md-9">
+                <p>{{ title.features }}</p>
+            </div>
+
+        </div>
+    </div>
+</section><!-- features -->
+
+{% include 'includes/index_courses.html' %}
+
+{% include 'includes/index_news.html' %}
+
+{% endblock %}

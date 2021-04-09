@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Все новости{% endblock %}
+
+{% block content %}
+{% load thumbnail %}
+
+<section id="download" class="section download banner" role="banner" style="padding: 0">
+    <div class="container second-banner-text">
+        <div class="col-md-10 col-md-offset-1">
+            <div class=" text-center">
+                <h3>{{ title.title }}</h3>
+                <h1>О нас</h1>
+            </div><!-- banner text -->
+        </div>
+    </div>
+</section><!-- banner -->
+
+
+<section class="container"
+    style="background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.5); margin: 50px auto; padding: 25px">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Наши сотрудники</h2>
+        </div>
+        {% for person in staff %}
+        <div class="col-md-3 col-sm-6">
+            <div class="person">
+                {% if person.image != '' %}
+                {% thumbnail person.image "450x450" crop="center" as im %}
+                <img src="{{ im.url }}" alt="" class="img-responsive">
+                {% endthumbnail %}
+                {% else %}
+                <img src="/static/images/team-1.jpg" alt="" class="img-responsive">
+                {% endif %}
+                <div class="person-content">
+                    <h4>{{ person.first_name }} {{ person.last_name }}</h4>
+                    <h5 class="role">{{ person.position }}</h5>
+                </div>
+            </div><!-- person -->
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>О нас</h2>
+        </div>
+        <div class="col-md-12">
+            {{ about.text|linebreaks }}
+            <br>
+            <br>
+        </div>
+        {% thumbnail about.image_1 "650x450" crop="center" upscale=True as im %}
+        <div class="col-md-6"><img width="100%" src="{{ im.url }}"></div>
+        {% endthumbnail %}
+        {% thumbnail about.image_2 "650x450" crop="center" upscale=True as im %}
+        <div class="col-md-6"><img width="100%" src="{{ im.url }}"></div>
+        {% endthumbnail %}
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Документы</h2>
+        </div>
+
+        <div class="col-md-2 col-sm-4">
+            <a href="#">
+                <div class="person doc">
+                    <img src="/static/images/work-3.jpg" alt="" class="img-responsive">
+                    <div class="person-content">
+                        <h5 class="role">Наименование документа</h5>
+                    </div>
+                </div><!-- person -->
+            </a>
+        </div>
+        <div class="col-md-2 col-sm-4">
+            <a href="#">
+                <div class="person doc">
+                    <img src="/static/images/work-4.jpg" alt="" class="img-responsive">
+                    <div class="person-content">
+                        <h5 class="role">Наименование второго документа</h5>
+                    </div>
+                </div><!-- person -->
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+{% endblock %}

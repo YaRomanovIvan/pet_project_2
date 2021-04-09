@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Главная страница{% endblock %}
+{% load thumbnail %}
+{% block content %}
+
+{% include 'includes/screen_title.html' %}
+
+<div class="container">
+    <br>
+    <h1>Новости нашего центра</h1>
+    <br>
+    {% for new in page %}
+    <div class="card mb-3" style="max-width: 1300px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                {% thumbnail new.image "400x400" upscale=True as im %}
+                <img class="card-img-top" class="rounded" src="{{ im.url }}" alt="Card image cap">
+                {% endthumbnail %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ new.title }}</h5>
+                    <p class="card-text">{{ new.description|truncatechars:255 }}</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text"><small class="text-muted">{{ new.pub_date }}</small></p>
+                        </div>
+                        <div class="col">
+                            <p class="card-text text-right"><small class="text-muted"><a style="color: orangered;"
+                                        href="{% url 'news_item' new.pk %}">>Читать всю
+                                        новость</a></small>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+    {% if page.has_other_pages %}
+    {% include "includes/paginator.html" with items=page paginator=paginator%}
+    {% endif %}
+</div>
+{% endblock %}

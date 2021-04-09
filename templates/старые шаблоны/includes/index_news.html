@@ -1,0 +1,38 @@
+{% load thumbnail %}
+<div class="container">
+    <div>
+        <h1>Новости нашего центра</h1>
+    </div>
+    <br>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for new in news %}
+        <div class="col" style="max-width: 500px; min-width: 350px;">
+            <div class="card">
+                {% thumbnail new.image "200x200" crop="center" upscale=True as im %}
+                <img class="card-img-top" src="{{ im.url }}" alt="Card image cap">
+                {% endthumbnail %}
+                <div class="card-body">
+                    <h3 class="card-title">{{ new.title|truncatechars:80 }}</h3>
+                    <p class="card-text">{{ new.description|truncatechars:255 }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">{{ new.pub_date }}</small>
+                        </div>
+                        <div class="col text-right">
+                            <small><a href="{% url 'news_item' new.pk %}" style="color: orangered;">>Читать всю
+                                    новость</a></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+    <div class="row justify-content-center">
+        <a href="{% url 'news' %}" class="btn btn-primary" style="background-color: orangered">Все новости</a>
+    </div>
+</div>

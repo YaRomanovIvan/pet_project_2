@@ -1,0 +1,31 @@
+{% load thumbnail %}
+<section id="courses" class="section teams"
+    style="background-color: white; margin-top: 50px;box-shadow: 0 0 10px rgba(0,0,0,0.5)">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Доступные курсы <sup>{{ count }}</sup></h2>
+            </div>
+            {% for course in courses %}
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'selected_course' course.slug %}">
+                    <div class="person doc">
+                        {% thumbnail course.image "650x650" crop="center" upscale=True as im %}
+                        <img src="{{ im.url }}" alt="" class="img-responsive logo-courses">
+                        {% endthumbnail %}
+                        <h5 class="role">Категория</h5>
+                        <p class="role">{{ course.category }}</p>
+                        <h5 class="role">Продолж.</h5>
+                        <p class="role">{{ course.period }}</p>
+                        <h4>{{ course.name|truncatechars:55 }}</h4>
+                    </div><!-- person -->
+                </a>
+            </div>
+            {% endfor %}
+
+            <div class="col-md-12 repeat" style="margin-top: 50px; text-align: center">
+                <a href="{% url 'courses' %}" class="btn btn-large">Все доступные курсы</a>
+            </div>
+        </div>
+    </div>
+</section><!-- teams -->

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Все новости{% endblock %}
+
+{% block content %}
+{% load thumbnail %}
+
+<section id="download" class="section download banner" role="banner" style="padding: 0">
+    <div class="container second-banner-text">
+        <div class="col-md-10 col-md-offset-1">
+            <div class=" text-center">
+                <h3>{{ title.title }}</h3>
+                <h1>Новости компании</h1>
+            </div><!-- banner text -->
+        </div>
+    </div>
+</section><!-- banner -->
+
+
+
+<section class="container"
+    style="background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.5); margin: 50px auto; padding: 25px">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Новости нашего центра</h2>
+        </div>
+        {% load thumbnail %}
+        {% for new in news %}
+        <div class="col-md-12 news">
+            <div class="col-md-4">
+                {% thumbnail new.title_image "650x450" crop="center" upscale=True as im %}
+                <img src="{{ im.url }}" alt="" class="img-responsive img-news">
+                {% endthumbnail %}
+            </div>
+            <div class="person-content col-md-8 news-all">
+                <h4>{{ new.title }}</h4>
+                <p>{{ new.date }}</p>
+                <p>{{ new.description|truncatechars:235 }}</p>
+                <a href="{% url 'selected_news' new.pk %}">Читать всю новость</a>
+            </div>
+        </div><!-- person -->
+        {% endfor %}
+    </div>
+</section><!-- teams -->
+
+{% endblock %}

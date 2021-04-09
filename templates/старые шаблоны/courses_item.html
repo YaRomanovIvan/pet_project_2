@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Новости{% endblock %}
+{% load thumbnail %}
+
+{% block content %}
+{% include 'includes/screen_title.html' %}
+<br>
+<div class="container">
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-2">
+                {% thumbnail get_course.image "130x130" crop="center" upscale=True as im %}
+                <img class="card-img-center rounded-circle" style="padding: 5%;" src="{{ im.url }}">
+                {% endthumbnail %}
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <p class="card-text font-weight-bold" style=" margin-bottom: 1px; color: orangered;">Название:</p>
+                    <h3 class="card-title">{{ get_course.name }}</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <p class="card-text font-weight-bold"
+                                    style="margin-bottom: 2px; padding-left: 5%; color: orangered;">
+                                    Продолжительность:
+                                </p>
+                                <p class="card-text text-muted" style="padding-left: 2%;">{{ get_course.period }}</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <p class="card-text font-weight-bold" style="color: orangered;">
+                                    Возрастная группа:
+                                </p>
+                                <p class="card-text text-muted" style="padding-left: 2%;">{{ get_course.group }}</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <p class="card-text font-weight-bold" style="color: orangered;">
+                                    Категория:
+                                </p>
+                                <p class="card-text text-muted" style="padding-left: 2%;">{{ get_course.category }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% for i in file %}
+            <div class="col">
+                <embed src="{{ i.file.url }}" height="600" width="500">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col">
+            <h6 style="color: orangered;">Описание курса</h6>
+            <p>{{ get_course.description }}</p>
+            <br>
+            <br>
+            <h6 style="color: orangered;">График проведения курса:</h6>
+            <table class="table">
+                <tbody>
+                    {% for date in chart %}
+                    <tr>
+                        <td></td>
+                        <td>{{ date.date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <h6 style="margin-bottom: auto; color: orangered;">Стоимость:</h6>
+            <h2 style="color: orangered;">{{ get_course.price}} рублей</h2>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

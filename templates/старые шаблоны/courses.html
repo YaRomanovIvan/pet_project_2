@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+{% load thumbnail %}
+
+{% include 'includes/screen_title.html' %}
+
+<div class=" container">
+  <h1 style="color: orangered;">Доступные курсы <sup>{{ count_courses }}</sup></h1>
+  <br>
+  {% for cat in category %}
+  <h3 style="color: orangered;">{{ cat.name_category }}:</h3>
+  <div>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for course in courses %}
+      {% if cat == course.category %}
+      <div class="col-6" style="min-width: 450px; max-width: 600px;">
+        <a class="text-dark" href="{% url 'courses_item' course.pk %}">
+          <div class="card mb-4" style="min-width: 500px; max-width: 600px;">
+            <div class="row g-0 justify-content-md-center">
+              <div class="col-md-3">
+                {% thumbnail course.image "130x130" crop="center" upscale=True as im %}
+                <img class="card-img-center rounded-circle" style="padding: 5%;" src="{{ im.url }}">
+                {% endthumbnail %}
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <p class="card-text font-weight-bold" style=" margin-bottom: 1px; color: orangered;">Название:</p>
+                  <h4 class="card-title">{{ course.name }}</h4>
+                  <hr>
+                  <div class="row">
+                    <p class="card-text font-weight-bold"
+                      style="margin-bottom: 2px; padding-left: 4%; color: orangered;">
+                      Продолжительность:
+                    </p>
+                    <p class="card-text text-muted" style="padding-left: 4%;">{{ course.period }}</p>
+                  </div>
+                  <div class="row">
+                    <p class="card-text font-weight-bold"
+                      style="margin-bottom: 2px; padding-left: 4%; color: orangered;">
+                      Возрастная группа:
+                    </p>
+                    <p class="card-text text-muted" style="padding-left: 4%;">{{ course.group }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

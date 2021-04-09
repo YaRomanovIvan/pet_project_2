@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}{{ course.name }}{% endblock %}
+
+{% block content %}
+{% load thumbnail %}
+<section id="download" class="section download banner" role="banner" style="padding: 0">
+    <div class="container second-banner-text">
+        <div class="col-md-10 col-md-offset-1">
+            <div class=" text-center">
+                <h3>{{ title.title }}</h3>
+                <h1>{{ course.name }}</h1>
+            </div><!-- banner text -->
+        </div>
+    </div>
+</section><!-- banner -->
+
+
+
+<section class="container"
+    style="background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.5); margin: 50px auto; padding: 25px">
+    <div class="row">
+        <div class="person news news-all" style="border: silver solid 1px; margin-bottom: 25px;">
+            {% thumbnail course.image "250x250" crop="center" upscale=True as im %}
+            <img src="{{ im.url }}" alt="" class="img-responsive logo-courses">
+            {% endthumbnail %}
+            <h5 class="role">Название:</h5>
+            <h4>{{ course.name }}</h4>
+            <h5 class="role">Продолжительнсть: <strong>{{ course.period }}</strong> Возрастная группа: <strong>
+                    {{ course.age_group }}</strong>
+                Категория: <strong>{{ course.category }}</strong></h5>
+        </div><!-- person -->
+        {% for doc in document %}
+        <div class="col-md-3">
+            <a href="{{ doc.document.url }}">
+                <div class="person doc">
+                    {% load static %}
+                    <img src="{% static 'images/work-3.jpg' %}" alt="" class="img-responsive">
+                    <div class="person-content">
+                        <h5 class="role">{{ doc.name }}</h5>
+                    </div>
+                </div><!-- person -->
+            </a>
+        </div>
+        {% endfor %}
+
+        <div class="col-md-6">
+            <h5 class="role">Описание курса:</h5>
+            <br>
+            <p class="with-bottom-line">{{ course.description }}</p>
+            <br>
+            <br>
+            <h5 class="role">Стоимость курса:</h5>
+            <h6>{{ course.price }} руб.</h6>
+
+        </div>
+    </div>
+</section><!-- teams -->
+
+{% endblock %}

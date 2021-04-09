@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Новости{% endblock %}
+{% load thumbnail %}
+
+{% block content %}
+{% include 'includes/screen_title.html' %}
+<br>
+<div class="container" style="background-color: white;">
+    <div class="row">
+        <div class="col">
+            {% thumbnail get_news.image "400x400" upscale=True as im %}
+            <img class="rounded" style="margin: 0 20px 10px 0;
+            padding: 0;
+            float: left;" src="{{ im.url }}" alt="Card image cap">
+            {% endthumbnail %}
+            <h1>{{ get_news.title }}</h1>
+            <hr>
+            <p><span class="text-muted">{{ get_news.pub_date }}</span></p>
+            <p>{{ get_news.description|safe }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% load thumbnail %}
+<div class="container">
+    <h1>Доступные курсы <sup>{{ count_courses }}</sup></h1>
+    <br>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for course in courses %}
+        <div class="col" style="min-width: 350px; max-width: 450px;">
+            <a class="text-dark" href="{% url 'courses_item' course.pk %}">
+                <div class="card mb-4">
+                    <div class="row g-0 justify-content-md-center">
+                        <div class="col-md-4">
+                            {% thumbnail course.image "130x130" crop="center" upscale=True as im %}
+                            <img class="card-img-center rounded-circle" style="padding: 5%;" src="{{ im.url }}">
+                            {% endthumbnail %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <p class="card-text font-weight-bold"
+                                    style="margin-bottom: 2px; padding-left: 4%; color: orangered;">
+                                    Категория:
+                                </p>
+                                <p class="card-text text-muted" style="padding-left: 4%;">{{ course.category }}</p>
+                                <p class="card-text font-weight-bold"
+                                    style="margin-bottom: 2px; padding-left: 4%; color: orangered;">
+                                    Продолжительность:
+                                </p>
+                                <p class="card-text text-muted" style="padding-left: 4%;">{{ course.period }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col">
+                        <p class="card-text font-weight-bold" style=" margin-bottom: 1px; color: orangered;">
+                            Название:</p>
+                        <h4 class="card-title">{{ course.name }}</h4>
+
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        <a href="{% url 'courses' %}" class="btn btn-primary" style="background-color: orangered">Все доступные
+            курсы</a>
+    </div>
+    <hr>
+</div>

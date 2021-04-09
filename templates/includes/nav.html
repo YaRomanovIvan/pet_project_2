@@ -1,0 +1,16 @@
+<header id="header">
+    <div class="header-content clearfix">
+        <a class="logo" href="{% url 'index' %}">
+            <img class="main-logo" style="height: 50px" src="{{ nav_logo.top_logo.url }}" alt="">
+            <img class="mobile-logo" style="height: 50px" src="{{ nav_logo.top_logo_mobile.url }}" alt="">
+        </a>
+        <nav class="navigation" role="navigation">
+            <ul class="primary-nav">
+                <li><a href="{% url 'about_us' %}">О нас</a></li>
+                <li><a href="{% url 'news' %}">Новости центра</a></li>
+                <li><a href="{% url 'courses' %}">Дополнительное образование</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="nav-toggle">Menu<span></span></a>
+    </div><!-- header content -->
+</header><!-- header -->
